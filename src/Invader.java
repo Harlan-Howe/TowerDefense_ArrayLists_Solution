@@ -57,9 +57,16 @@ public class Invader
                 g.setColor(Color.YELLOW);
                 g.fillOval((int)(loc[0]-16), (int)(loc[1]-16), 32, 32);
                 break;
+            case 2:
+            default:
+                g.setColor(Color.MAGENTA);
+                int[] xLocs = {(int)loc[0], (int)loc[0]+16, (int)loc[0]-16, (int)loc[0]};
+                int[] yLocs = {(int)loc[1]-16, (int)loc[1]+16, (int)loc[1]+16, (int)loc[1]-16};
+                g.fillPolygon(xLocs, yLocs, 4);
+                break;
         }
         g.setColor(Color.RED);
-        g.fillRect((int)(loc[0]-16), (int)(loc[1]-18), myHealth*32/100, 2);
+        g.fillRect((int)(loc[0]-16), (int)(loc[1]-18), myHealth*32/healths[myType], 2);
     }
 
     public boolean advance(double deltaT)
