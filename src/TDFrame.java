@@ -11,6 +11,7 @@ public class TDFrame extends JFrame implements ActionListener
     private int userCash;
     private JLabel cashLabel;
     private JButton startButton;
+    private JLabel statusLabel;
 
     public int NUM_TURRET_TYPES = 3;
     public final int[] PRICES = {100, 150, 200};
@@ -26,6 +27,7 @@ public class TDFrame extends JFrame implements ActionListener
         mainPanel = new TDPanel(this);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
         buildTopPane();
+        buildBottomPane();
     }
 
     public void buildTopPane()
@@ -73,6 +75,13 @@ public class TDFrame extends JFrame implements ActionListener
         return result;
     }
 
+    public void buildBottomPane()
+    {
+        statusLabel = new JLabel("Test");
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.add(statusLabel);
+        getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+    }
     @Override
     public void actionPerformed(ActionEvent e)
     {
