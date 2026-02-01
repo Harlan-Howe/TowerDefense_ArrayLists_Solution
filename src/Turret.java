@@ -16,12 +16,15 @@ public class Turret
     private static Stroke thickLine;
     private static Stroke gunLine;
     private static Color[] shotColors = {Color.GREEN, Color.BLUE, Color.PINK};
+    private static int[] ranges = {70, 100, 120};
+    private static double[] rechargeTimes = {1.0, 2.0, 8.0};
+    private static int[] damages = {3, 5, 40};
 
-    public Turret(int range, double period, int damage, int type, World myWorld)
+    public Turret(int type, World myWorld)
     {
-        this.myRange = range;
-        this.myRechargeTime = period;
-        this.myDamage = damage;
+        this.myRange = ranges[type];
+        this.myRechargeTime = rechargeTimes[type];
+        this.myDamage = damages[type];
         this.myType = type;
         this.myWorld = myWorld;
         myTimeSinceLastFire = 999;

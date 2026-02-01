@@ -7,11 +7,13 @@ public class Invader
     private int myType;
     private World myWorld;
     private double myProgress;
+    private static double[] speeds = {1.0, 1.5, 0.5};
+    private static int[] healths = {100, 125, 225};
 
-    public Invader(double mySpeed, int myHealth, int myType, World myWorld)
+    public Invader(int myType, World myWorld)
     {
-        this.mySpeed = mySpeed;
-        this.myHealth = myHealth;
+        this.mySpeed = speeds[myType];
+        this.myHealth = healths[myType];
         this.myType = myType;
         this.myWorld = myWorld;
         myProgress = 0.0;
