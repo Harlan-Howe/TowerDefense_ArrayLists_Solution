@@ -14,9 +14,9 @@ public class World
         invaderList.add(new Invader(1.0, 100, 1, this));
 
         turretList = new ArrayList<Turret>();
-        turretList.add(new Turret(50, 2, 20, 2, this));
+        turretList.add(new Turret(100, 1, 15, 2, this));
         turretList.get(0).setMyLoc(140,220);
-        turretList.add(new Turret(50, 10, 20, 1, this));
+        turretList.add(new Turret(75, 8, 50, 1, this));
         turretList.get(1).setMyLoc(140,180);
     }
 
@@ -64,7 +64,17 @@ public class World
         for (Turret t: turretList)
         {
             t.advance(deltaT);
+            t.targetNearestInvader();
         }
     }
 
+    public void damageInvader(Invader inv, int damage)
+    {
+        if (inv != null)
+        {
+            inv.takeDamage(damage);
+            if (inv.isDead())
+                invaderList.remove(inv);
+        }
+    }
 }

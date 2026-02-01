@@ -1,9 +1,10 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Turret
 {
     private int myRange;
-    private double myPeriod;
+    private double myRechargeTime;
     private int myDamage;
     private int myType;
     private World myWorld;
@@ -18,11 +19,11 @@ public class Turret
     public Turret(int range, double period, int damage, int type, World myWorld)
     {
         this.myRange = range;
-        this.myPeriod = period;
+        this.myRechargeTime = period;
         this.myDamage = damage;
         this.myType = type;
         this.myWorld = myWorld;
-        myTimeSinceLastFire = 0;
+        myTimeSinceLastFire = 999;
         myLoc = new int[2];
         myLoc[0] = -100;
         myLoc[1] = -100;
@@ -82,14 +83,14 @@ public class Turret
     private void drawRecharge(Graphics2D g)
     {
         g.setStroke(thickLine);
-        if (myTimeSinceLastFire >= myPeriod)
+        if (myTimeSinceLastFire >= myRechargeTime)
         {
             g.setColor(Color.RED);
             g.drawOval(myLoc[0]-7, myLoc[1]-7, 14, 14);
         }
         else
         {
-            int angle = (int)( 360 * myTimeSinceLastFire/myPeriod);
+            int angle = (int)( 360 * myTimeSinceLastFire/ myRechargeTime);
             g.setColor(new Color(255, 255-255*angle/720, 0));
             g.drawArc(myLoc[0]-7, myLoc[1]-7, 14, 14, 0, angle);
         }
@@ -107,5 +108,37 @@ public class Turret
     public void advance(double deltaT)
     {
         myTimeSinceLastFire += deltaT;
+    }
+
+    public void targetNearestInvader()
+    {
+        ArrayList<Invader> invaders = myWorld.getInvaderList();
+        double nearestDist2 = 999999;
+        Invader nearestInv = null;
+        for (Invader inv:invaders)
+        {
+            double[] invLoc = inv.getLoc();
+
+            double d2 = Math.pow(invLoc[0]-myLoc[0],2) + Math.pow(invLoc[1]-myLoc[1],2);
+            if (d2 < nearestDist2)
+            {
+                nearestDist2 = d2;
+                nearestInv = inv;
+            }
+        }
+        if (nearestInv != null)
+        {
+            double[] invLoc = nearestInv.getLoc();
+
+            myGunAngle = Math.atan2(nearestInv.getLoc()[1]-myLoc[1],nearestInv.getLoc()[0]-myLoc[0]);
+
+            if ((nearestDist2 < Math.pow(myRange,2)) && (myTimeSinceLastFire >= myRechargeTime))
+            {
+                System.out.println("Fire");
+//                myWorld.addShot(myLoc, invLoc);
+                myWorld.damageInvader(nearestInv, myDamage);
+                myTimeSinceLastFire = 0;
+            }
+        }
     }
 }

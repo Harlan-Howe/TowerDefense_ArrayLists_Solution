@@ -65,4 +65,9 @@ public class Invader
         myProgress += deltaT * mySpeed;
         return myProgress >= myWorld.getPath().length;
     }
+
+    public void takeDamage(int damage) {myHealth -= damage;}
+
+    public boolean isDead() {return myHealth <=0;}
+
 }
