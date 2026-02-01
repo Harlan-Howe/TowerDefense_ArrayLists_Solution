@@ -9,9 +9,11 @@ public class Turret
     private World myWorld;
     private double myTimeSinceLastFire;
     private int[] myLoc;
+    private double myGunAngle;
 
-    private static BasicStroke thinLine;
-    private static BasicStroke thickLine;
+    private static Stroke thinLine;
+    private static Stroke thickLine;
+    private static Stroke gunLine;
 
     public Turret(int range, double period, int damage, int type, World myWorld)
     {
@@ -20,15 +22,18 @@ public class Turret
         this.myDamage = damage;
         this.myType = type;
         this.myWorld = myWorld;
-        myTimeSinceLastFire = 99;
+        myTimeSinceLastFire = 999;
         myLoc = new int[2];
         myLoc[0] = -100;
         myLoc[1] = -100;
+        myGunAngle = 0;
 
         if (null == thickLine)
             thinLine = new BasicStroke(1);
         if (null == thickLine)
             thickLine = new BasicStroke(2);
+        if (null == gunLine)
+            gunLine = new BasicStroke(4);
     }
 
     public void setMyLoc(int[] myLoc)
@@ -70,12 +75,13 @@ public class Turret
                 for (int i=0; i<3; i++)
                     g.drawLine(x_vals[i], y_vals[i], x_vals[i+3], y_vals[i+3]);
         }
-        drawRecharge(g);
+        drawRecharge((Graphics2D)g);
+        drawGun((Graphics2D)g);
     }
 
-    private void drawRecharge(Graphics g)
+    private void drawRecharge(Graphics2D g)
     {
-        ((Graphics2D) g).setStroke(thickLine);
+        g.setStroke(thickLine);
         if (myTimeSinceLastFire >= myPeriod)
         {
             g.setColor(Color.RED);
@@ -87,6 +93,14 @@ public class Turret
             g.setColor(new Color(255, 255-255*angle/540, 0));
             g.drawArc(myLoc[0]-7, myLoc[1]-7, 14, 14, 0, angle);
         }
-        ((Graphics2D) g).setStroke(thinLine);
+        g.setStroke(thinLine);
+    }
+
+    private void drawGun(Graphics2D g)
+    {
+        g.setColor(Color.BLACK);
+        g.setStroke(gunLine);
+        g.drawLine(myLoc[0],myLoc[1],(int)(myLoc[0]+20*Math.cos(myGunAngle)), (int)(myLoc[1]+20*Math.sin(myGunAngle)));
+        g.setStroke(thinLine);
     }
 }
