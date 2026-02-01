@@ -46,6 +46,8 @@ public class Invader
                 g.fillOval((int)(loc[0]-16), (int)(loc[1]-16), 32, 32);
                 break;
         }
+        g.setColor(Color.RED);
+        g.fillRect((int)(loc[0]-16), (int)(loc[1]-18), myHealth*32/100, 2);
     }
 
     public void advance(double deltaT)
