@@ -135,7 +135,6 @@ public class Turret
 
             if ((nearestDist2 < Math.pow(myRange,2)) && (myTimeSinceLastFire >= myRechargeTime))
             {
-                System.out.println("Fire");
                 myWorld.addShot(myLoc, invLoc, shotColors[myType]);
                 myWorld.damageInvader(nearestInv, myDamage);
                 myTimeSinceLastFire = 0;
