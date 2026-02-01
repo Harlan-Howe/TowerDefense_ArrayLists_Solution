@@ -4,11 +4,13 @@ import java.awt.*;
 public class TDPanel extends JPanel
 {
     private final World myWorld;
+    private final TDFrame myParent;
     private final AnimationThread myThread;
 
-    public TDPanel()
+    public TDPanel(TDFrame parent)
     {
         super();
+        myParent = parent;
         setBackground(Color.LIGHT_GRAY);
         myWorld = new World();
         myThread = new AnimationThread();
