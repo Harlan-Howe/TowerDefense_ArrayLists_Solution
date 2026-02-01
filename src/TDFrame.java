@@ -12,9 +12,13 @@ public class TDFrame extends JFrame implements ActionListener
     private JLabel cashLabel;
     private JButton startButton;
     private JLabel statusLabel;
+    private int currentStatus;
 
     public int NUM_TURRET_TYPES = 3;
     public final int[] PRICES = {100, 150, 200};
+    public final int STATUS_WAITING = 0;
+    public final int STATUS_PLACING = 1;
+    public final int STATUS_RUNNING = 2;
 
     public TDFrame()
     {
@@ -28,6 +32,7 @@ public class TDFrame extends JFrame implements ActionListener
         getContentPane().add(mainPanel, BorderLayout.CENTER);
         buildTopPane();
         buildBottomPane();
+        setStatus(STATUS_WAITING);
     }
 
     public void buildTopPane()
@@ -93,4 +98,33 @@ public class TDFrame extends JFrame implements ActionListener
                 System.out.println("User pressed start.");
         }
     }
+
+    public void setStatus(int state)
+    {
+        currentStatus = state;
+        switch (currentStatus)
+        {
+            case STATUS_WAITING:
+                statusLabel.setText("Select a Turret to Place or Start.");
+                setButtonsEnabled(true);
+                break;
+            case STATUS_PLACING:
+                statusLabel.setText("Place the Turret in the World.");
+                setButtonsEnabled(false);
+                break;
+            case STATUS_RUNNING:
+                statusLabel.setText("Running");
+                setButtonsEnabled(false);
+                break;
+        }
+    }
+
+    public void setButtonsEnabled(boolean enabled)
+    {
+        for (JButton button:turretButtons)
+            button.setEnabled(enabled);
+        startButton.setEnabled(enabled);
+    }
+
+
 }
