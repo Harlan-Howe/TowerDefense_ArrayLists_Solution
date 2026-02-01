@@ -16,9 +16,9 @@ public class TDFrame extends JFrame implements ActionListener
 
     public int NUM_TURRET_TYPES = 3;
     public final int[] PRICES = {100, 150, 200};
-    public final int STATUS_WAITING = 0;
-    public final int STATUS_PLACING = 1;
-    public final int STATUS_RUNNING = 2;
+    public final static int STATUS_WAITING = 0;
+    public final static int STATUS_PLACING = 1;
+    public final static int STATUS_RUNNING = 2;
 
     public TDFrame()
     {
@@ -93,9 +93,18 @@ public class TDFrame extends JFrame implements ActionListener
         for (int i=0; i<NUM_TURRET_TYPES; i++)
         {
             if (e.getSource() == turretButtons[i])
-                System.out.println("User pressed button "+i+".");
+            {
+                System.out.println("User pressed button " + i + ".");
+                setStatus(STATUS_PLACING);
+                mainPanel.placeTurret(i);
+                return;
+            }
             if (e.getSource() == startButton)
+            {
                 System.out.println("User pressed start.");
+                setStatus(STATUS_RUNNING);
+            }
+
         }
     }
 
@@ -117,6 +126,11 @@ public class TDFrame extends JFrame implements ActionListener
                 setButtonsEnabled(false);
                 break;
         }
+    }
+
+    public void overrideStatusMessage(String text)
+    {
+        statusLabel.setText(text);
     }
 
     public void setButtonsEnabled(boolean enabled)
