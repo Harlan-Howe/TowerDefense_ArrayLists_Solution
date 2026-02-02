@@ -17,7 +17,6 @@ public class World
     public World()
     {
         invaderList = new ArrayList<Invader>();
-        invaderList.add(new Invader(2, this));
 
         turretList = new ArrayList<Turret>();
 
