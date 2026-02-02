@@ -15,10 +15,6 @@ public class World
         invaderList.add(new Invader(2, this));
 
         turretList = new ArrayList<Turret>();
-        turretList.add(new Turret(2, this));
-        turretList.get(0).setMyLoc(140,220);
-        turretList.add(new Turret(1, this));
-        turretList.get(1).setMyLoc(140,180);
 
         shotList = new ArrayList<Shot>();
     }

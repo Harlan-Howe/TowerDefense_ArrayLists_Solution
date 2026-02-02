@@ -94,14 +94,19 @@ public class TDFrame extends JFrame implements ActionListener
         {
             if (e.getSource() == turretButtons[i])
             {
-                System.out.println("User pressed button " + i + ".");
+                if (PRICES[i] > userCash)
+                {
+                    overrideStatusMessage("You can't afford that. Pick another type of Turret or Press Start.");
+                    return;
+                }
+                userCash -= PRICES[i];
+                cashLabel.setText("$"+userCash);
                 setStatus(STATUS_PLACING);
                 mainPanel.placeTurret(i);
                 return;
             }
             if (e.getSource() == startButton)
             {
-                System.out.println("User pressed start.");
                 setStatus(STATUS_RUNNING);
                 mainPanel.startRun();
             }
