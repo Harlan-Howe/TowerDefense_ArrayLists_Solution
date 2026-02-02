@@ -115,6 +115,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
     public void stopRun()
     {
         status = TDFrame.STATUS_WAITING;
+        myParent.setStatus(TDFrame.STATUS_WAITING);
     }
 
     class AnimationThread extends Thread
@@ -139,6 +140,8 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
                     //                }
                     myWorld.updateAllObjects((int) difference);
                     repaint();
+                    if (myWorld.getRemainingInvadersToSpawn() + myWorld.getInvaderList().size() == 0)
+                        stopRun();
                 }
                 try
                 {
