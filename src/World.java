@@ -58,7 +58,10 @@ public class World
             if (rnd < spawnList[i])
             {
                 spawnList[i] -= 1;
-                return new Invader(i, this);
+                Invader nextInvader = new Invader(i, this);
+                for (int j=0; j<currentLevel; j++)
+                    nextInvader.levelUp();
+                return nextInvader;
             }
             else
                 rnd -= spawnList[i];

@@ -19,6 +19,20 @@ public class Invader
         myProgress = 0.0;
     }
 
+    public void levelUp()
+    {
+        int whichParameter = (int)(Math.random()*2);
+        switch (whichParameter)
+        {
+            case 0:
+                this.mySpeed *= 1.1;
+                break;
+            case 1:
+                this.myHealth = this.myHealth * 11 /10;
+
+        }
+    }
+
     public double[] getLoc()
     {
         double[] loc = new double[2];
