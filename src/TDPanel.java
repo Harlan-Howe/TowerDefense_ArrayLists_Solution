@@ -111,7 +111,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
     public void startRun()
     {
         myThread.restart();
-        myWorld.getInvaderList().add(myWorld.spawnInvader());
+        myWorld.spawnInvader();
         status = TDFrame.STATUS_RUNNING;
     }
 
@@ -136,14 +136,10 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
                 {
                     difference = System.currentTimeMillis() - start;
                     start = System.currentTimeMillis();
-                    //                if (difference >= MILLISECONDS_PER_STEP)
-                    //                {
-                    //                    doAnimationStep();
-                    //                    start = System.currentTimeMillis();
-                    //                }
+
                     myWorld.updateAllObjects((int) difference);
                     repaint();
-                    if (myWorld.getRemainingInvadersToSpawn() + myWorld.getInvaderList().size() == 0)
+                    if (myWorld.getNumRemainingInvadersToSpawn() + myWorld.getInvaderList().size() == 0)
                     {
                         stopRun();
                         myWorld.advanceLevel();
