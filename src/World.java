@@ -11,6 +11,7 @@ public class World
     private final ArrayList<Invader> invaderList;
     private final ArrayList<Turret> turretList;
     private final ArrayList<Shot> shotList;
+    private final TDPanel myParent;
 
     // how many of each type of invader per level?
     private final int[][] levels = {{4, 3, 2}, {6, 1, 3}, {8, 3, 5}, {0, 0, 6}, {15, 5, 5}};
@@ -22,8 +23,9 @@ public class World
     private int currentLevel;
 
 
-    public World()
+    public World(TDPanel parent)
     {
+        myParent = parent;
         invaderList = new ArrayList<Invader>();
 
         turretList = new ArrayList<Turret>();
@@ -203,7 +205,10 @@ public class World
         {
             inv.takeDamage(damage);
             if (inv.isDead())
+            {
+                myParent.turretKilledInvader(inv.getType());
                 invaderList.remove(inv);
+            }
         }
     }
 

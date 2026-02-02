@@ -17,7 +17,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
         super();
         myParent = parent;
         setBackground(Color.LIGHT_GRAY);
-        myWorld = new World();
+        myWorld = new World(this);
         myThread = new AnimationThread();
         status = TDFrame.STATUS_WAITING;
         addMouseListener(this);
@@ -43,6 +43,11 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
         myWorld.drawTurrets(g);
         if (TDFrame.STATUS_PLACING == status)
             currentTurret.drawSelf(g);
+    }
+
+    public void turretKilledInvader(int type)
+    {
+        myParent.addCash(Invader.REWARDS[type]);
     }
 
     @Override
@@ -143,7 +148,6 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
                     {
                         stopRun();
                         myWorld.advanceLevel();
-                        myParent.addCash((int)(Math.random()*250+150));
                         repaint();
                     }
                 }

@@ -13,6 +13,8 @@ public class Invader
     private final static double[] speeds = {1.0, 1.5, 0.5};
     private final static int[] healths = {100, 125, 225};
 
+    public final static int[] REWARDS = {25, 35, 45};
+
     public Invader(int myType, World myWorld)
     {
         this.mySpeed = speeds[myType];
@@ -21,6 +23,8 @@ public class Invader
         this.myWorld = myWorld;
         myProgress = 0.0;
     }
+
+    public int getType() {return myType;}
 
     /**
      * increases either the speed or the hitpoints of this invader by 10%. Makes the invaders a bit faster and/or
