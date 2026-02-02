@@ -27,7 +27,7 @@ public class TDFrame extends JFrame implements ActionListener
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
-        userCash = 1000;
+        userCash = 1500;
         mainPanel = new TDPanel(this);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
         buildTopPane();
