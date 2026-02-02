@@ -16,9 +16,9 @@ public class Turret
     private static Stroke thickLine;
     private static Stroke gunLine;
     private static Color[] shotColors = {Color.GREEN, Color.BLUE, Color.PINK};
-    public static final int[] RANGES = {70, 100, 120};
-    public static final double[] RECHARGE_TIMES = {1.0, 2.0, 8.0};
-    public static final int[] DAMAGES = {3, 5, 40};
+    public static final int[] RANGES = {70, 100, 150};
+    public static final double[] RECHARGE_TIMES = {1.0, 2.0, 6.0};
+    public static final int[] DAMAGES = {10, 15, 40};
 
     public Turret(int type, World myWorld)
     {
