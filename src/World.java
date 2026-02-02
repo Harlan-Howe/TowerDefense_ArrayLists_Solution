@@ -35,9 +35,7 @@ public class World
 
     public Invader spawnInvader()
     {
-        int remainingInvaders = 0;
-        for (int count: spawnList)
-            remainingInvaders+=count;
+        int remainingInvaders = getRemainingInvadersToSpawn();
 
         if (0 == remainingInvaders)
             return null;
@@ -54,6 +52,14 @@ public class World
                 rnd -= spawnList[i];
         }
         throw new RuntimeException("randomizing spawn didn't work.");
+    }
+
+    private int getRemainingInvadersToSpawn()
+    {
+        int remainingInvaders = 0;
+        for (int count: spawnList)
+            remainingInvaders+=count;
+        return remainingInvaders;
     }
 
     public void drawPath(Graphics g)
