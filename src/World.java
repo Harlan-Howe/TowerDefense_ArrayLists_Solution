@@ -8,6 +8,10 @@ public class World
     private ArrayList<Invader> invaderList;
     private ArrayList<Turret> turretList;
     private ArrayList<Shot> shotList;
+    private int[][] levels = {{4, 3, 2}, {6, 1, 3}};
+    private int[] spawnList;
+    private int currentLevel;
+    private final double SPAWN_LIKELIHOOD = 0.01;
 
     public World()
     {
@@ -17,8 +21,39 @@ public class World
         turretList = new ArrayList<Turret>();
 
         shotList = new ArrayList<Shot>();
+        currentLevel = 0;
+        initializeLevel();
     }
 
+    public void initializeLevel()
+    {
+        spawnList = new int[levels[currentLevel].length];
+        for (int i=0; i< levels[currentLevel].length; i++)
+            spawnList[i] = levels[currentLevel][i];
+    }
+
+    public Invader spawnInvader()
+    {
+        int remainingInvaders = 0;
+        for (int count: spawnList)
+            remainingInvaders+=count;
+
+        if (0 == remainingInvaders)
+            return null;
+
+        double rnd = remainingInvaders*Math.random();
+        for (int i=0; i<spawnList.length; i++)
+        {
+            if (rnd < spawnList[i])
+            {
+                spawnList[i] -= 1;
+                return new Invader(i, this);
+            }
+            else
+                rnd -= spawnList[i];
+        }
+        throw new RuntimeException("randomizing spawn didn't work.");
+    }
 
     public void drawPath(Graphics g)
     {
@@ -71,6 +106,13 @@ public class World
         {
             t.advance(deltaT);
             t.targetNearestInvader();
+        }
+
+        if (Math.random() < SPAWN_LIKELIHOOD)
+        {
+            Invader newInvader = spawnInvader();
+            if (null != newInvader)
+                invaderList.add(newInvader);
         }
     }
 
