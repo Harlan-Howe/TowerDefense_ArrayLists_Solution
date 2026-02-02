@@ -105,6 +105,13 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
         }
     }
 
+    public void startRun()
+    {
+        status = TDFrame.STATUS_RUNNING;
+        myThread.start();
+
+    }
+
 
     class AnimationThread extends Thread
     {

@@ -103,6 +103,7 @@ public class TDFrame extends JFrame implements ActionListener
             {
                 System.out.println("User pressed start.");
                 setStatus(STATUS_RUNNING);
+                mainPanel.startRun();
             }
 
         }
