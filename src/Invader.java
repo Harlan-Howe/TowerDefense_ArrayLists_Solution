@@ -2,13 +2,16 @@ import java.awt.*;
 
 public class Invader
 {
-    private double mySpeed;
-    private int myHealth;
-    private int myType;
-    private World myWorld;
-    private double myProgress;
-    private static double[] speeds = {1.0, 1.5, 0.5};
-    private static int[] healths = {100, 125, 225};
+    private double mySpeed; // the speed of this invader, in path squares/second.
+    private int myHealth; // how many hit points this invader has right now.
+    private final int myType;
+    private final World myWorld; // a pointer to the world in which this invader resides.
+    private double myProgress; // where along the path this invader is. (e.g., If it is 2.75, then it is 75% of the way
+                               // between square 2 and square 3.
+
+    // default speeds and hit points for the various types of invader.
+    private final static double[] speeds = {1.0, 1.5, 0.5};
+    private final static int[] healths = {100, 125, 225};
 
     public Invader(int myType, World myWorld)
     {
@@ -19,6 +22,10 @@ public class Invader
         myProgress = 0.0;
     }
 
+    /**
+     * increases either the speed or the hitpoints of this invader by 10%. Makes the invaders a bit faster and/or
+     * tougher as the game progresses.
+     */
     public void levelUp()
     {
         int whichParameter = (int)(Math.random()*2);
@@ -33,6 +40,10 @@ public class Invader
         }
     }
 
+    /**
+     * calculates where (in pixels) this invader is, based on its progress and the location of the path squares.
+     * @return an array of (x, y) doubles.
+     */
     public double[] getLoc()
     {
         double[] loc = new double[2];
@@ -58,6 +69,10 @@ public class Invader
         return loc;
     }
 
+    /**
+     * draw this invader, which depends on which type it is, along with a health bar.
+     * @param g - the Graphics object that indicates where on the screen to draw and the tools to do it.
+     */
     public void drawSelf(Graphics g)
     {
         double[] loc = getLoc();
@@ -83,6 +98,11 @@ public class Invader
         g.fillRect((int)(loc[0]-16), (int)(loc[1]-18), myHealth*32/healths[myType], 2);
     }
 
+    /**
+     * do one animation step... i.e., increase the progress a little bit, which will make this invader move.
+     * @param deltaT - the time, in seconds, since the last animation step.
+     * @return whether this invader has reached the end of the path!
+     */
     public boolean advance(double deltaT)
     {
         myProgress += deltaT * mySpeed;
