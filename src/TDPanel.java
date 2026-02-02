@@ -111,6 +111,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
     public void startRun()
     {
         myThread.restart();
+        myWorld.spawnInvader();
         status = TDFrame.STATUS_RUNNING;
     }
 
