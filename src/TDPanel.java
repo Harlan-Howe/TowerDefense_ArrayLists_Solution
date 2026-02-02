@@ -22,6 +22,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
         status = TDFrame.STATUS_WAITING;
         addMouseListener(this);
         addMouseMotionListener(this);
+        myThread.start();
     }
 
     public void placeTurret(int turretType)
@@ -107,42 +108,54 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
 
     public void startRun()
     {
+        myThread.restart();
         status = TDFrame.STATUS_RUNNING;
-        myThread.start();
-
     }
 
+    public void stopRun()
+    {
+        status = TDFrame.STATUS_WAITING;
+    }
 
     class AnimationThread extends Thread
     {
-
+        private long start;
         public void run() // this is what gets called when we tell this thread to start(). You should _NEVER_ call this
         // method directly.
         {
-            long start = System.currentTimeMillis();
+            start = System.currentTimeMillis();
             long difference;
             System.out.println("Starting Expansion Thread.");
             while (true)
             {
-                difference = System.currentTimeMillis() - start;
-                start = System.currentTimeMillis();
-//                if (difference >= MILLISECONDS_PER_STEP)
-//                {
-//                    doAnimationStep();
-//                    start = System.currentTimeMillis();
-//                }
-                myWorld.updateAllObjects((int)difference);
-                repaint();
+                if (TDFrame.STATUS_RUNNING == status)
+                {
+                    difference = System.currentTimeMillis() - start;
+                    start = System.currentTimeMillis();
+                    //                if (difference >= MILLISECONDS_PER_STEP)
+                    //                {
+                    //                    doAnimationStep();
+                    //                    start = System.currentTimeMillis();
+                    //                }
+                    myWorld.updateAllObjects((int) difference);
+                    repaint();
+                }
                 try
                 {
                     //noinspection BusyWait
                     Thread.sleep(25); // wait a quarter second before you consider running again.
-                }catch (InterruptedException iExp)
+                } catch (InterruptedException iExp)
                 {
                     System.out.println("AnimationThread was interrupted.");
                     break;
                 }
+
             }
+        }
+
+        public void restart()
+        {
+            start = System.currentTimeMillis();
         }
     }
 
