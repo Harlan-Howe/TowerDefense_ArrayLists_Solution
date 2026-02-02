@@ -9,7 +9,7 @@ public class World
     private ArrayList<Invader> invaderList;
     private ArrayList<Turret> turretList;
     private ArrayList<Shot> shotList;
-    private int[][] levels = {{4, 3, 2}, {6, 1, 3}};
+    private int[][] levels = {{4, 3, 2}, {6, 1, 3}, {8, 3, 5}, {0, 0, 6}, {15, 5, 5}};
     private int[] spawnList;
     private int currentLevel;
     private final double SPAWN_LIKELIHOOD = 0.01;
