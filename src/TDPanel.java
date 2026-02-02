@@ -147,6 +147,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
                     {
                         stopRun();
                         myWorld.advanceLevel();
+                        myParent.addCash((int)(Math.random()*250+150));
                         repaint();
                     }
                 }
