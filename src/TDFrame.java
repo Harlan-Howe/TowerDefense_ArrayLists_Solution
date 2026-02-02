@@ -146,5 +146,10 @@ public class TDFrame extends JFrame implements ActionListener
         startButton.setEnabled(enabled);
     }
 
+    public void addCash(int amount)
+    {
+        userCash += amount;
+        cashLabel.setText("$"+userCash);
+    }
 
 }
