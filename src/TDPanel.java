@@ -35,6 +35,8 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+        g.setColor(Color.BLACK);
+        g.drawString("Level: "+myWorld.getCurrentLevel(), 10, 10);
         myWorld.drawPath(g);
         myWorld.drawShots(g);
         myWorld.drawInvaders(g);
@@ -141,7 +143,10 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
                     myWorld.updateAllObjects((int) difference);
                     repaint();
                     if (myWorld.getRemainingInvadersToSpawn() + myWorld.getInvaderList().size() == 0)
+                    {
                         stopRun();
+                        myWorld.advanceLevel();
+                    }
                 }
                 try
                 {

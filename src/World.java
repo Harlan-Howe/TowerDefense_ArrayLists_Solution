@@ -32,6 +32,14 @@ public class World
             spawnList[i] = levels[currentLevel][i];
     }
 
+    public void advanceLevel()
+    {
+        currentLevel += 1;
+        initializeLevel();
+    }
+
+    public int getCurrentLevel() {return currentLevel;}
+
     public Invader spawnInvader()
     {
         int remainingInvaders = getRemainingInvadersToSpawn();
