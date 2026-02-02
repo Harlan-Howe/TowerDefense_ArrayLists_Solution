@@ -54,6 +54,8 @@ public class Turret
         myLoc[1] = y;
     }
 
+    public void resetTimer() {myTimeSinceLastFire = 999;}
+
     public void drawSelf(Graphics g)
     {
         switch (myType)

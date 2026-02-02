@@ -35,7 +35,12 @@ public class World
     public void advanceLevel()
     {
         currentLevel += 1;
+        shotList.clear();
         initializeLevel();
+        for (Turret t: turretList)
+        {
+            t.resetTimer();
+        }
     }
 
     public int getCurrentLevel() {return currentLevel;}

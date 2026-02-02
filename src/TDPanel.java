@@ -146,6 +146,7 @@ public class TDPanel extends JPanel implements MouseListener, MouseMotionListene
                     {
                         stopRun();
                         myWorld.advanceLevel();
+                        repaint();
                     }
                 }
                 try
