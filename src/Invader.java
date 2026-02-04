@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Invader
@@ -8,6 +9,7 @@ public class Invader
     private final World myWorld; // a pointer to the world in which this invader resides.
     private double myProgress; // where along the path this invader is. (e.g., If it is 2.75, then it is 75% of the way
                                // between square 2 and square 3.
+    private static Image[] invaderImages = null;
 
     // default speeds and hit points for the various types of invader.
     private final static double[] speeds = {1.0, 1.5, 0.5};
@@ -22,8 +24,19 @@ public class Invader
         this.myType = myType;
         this.myWorld = myWorld;
         myProgress = 0.0;
+        if (null == invaderImages)
+            loadImages();
     }
 
+    public void loadImages()
+    {
+        invaderImages = new Image[4];
+        for (int i=0; i<4; i++)
+        {
+            ImageIcon icon = new ImageIcon("Images/Invader" +i+".png");
+            invaderImages[i] = icon.getImage();
+        }
+    }
     public int getType() {return myType;}
 
     /**
@@ -80,24 +93,7 @@ public class Invader
     public void drawSelf(Graphics g)
     {
         double[] loc = getLoc();
-        switch (myType)
-        {
-            case 0:
-                g.setColor(Color.GREEN);
-                g.fillRect((int)(loc[0]-16), (int)(loc[1]-16), 32, 32);
-                break;
-            case 1:
-                g.setColor(Color.YELLOW);
-                g.fillOval((int)(loc[0]-16), (int)(loc[1]-16), 32, 32);
-                break;
-            case 2:
-            default:
-                g.setColor(Color.MAGENTA);
-                int[] xLocs = {(int)loc[0], (int)loc[0]+16, (int)loc[0]-16, (int)loc[0]};
-                int[] yLocs = {(int)loc[1]-16, (int)loc[1]+16, (int)loc[1]+16, (int)loc[1]-16};
-                g.fillPolygon(xLocs, yLocs, 4);
-                break;
-        }
+        g.drawImage(invaderImages[myType], (int)loc[0]-18, (int)loc[1]-18, null);
         g.setColor(Color.RED);
         g.fillRect((int)(loc[0]-16), (int)(loc[1]-18), myHealth*32/healths[myType], 2);
     }
